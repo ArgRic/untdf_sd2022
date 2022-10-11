@@ -6,23 +6,24 @@ namespace UNTDF.SocketClient.Clients
 {
     public static class ClientFactory
     {
-        public static IEnumerable<MessageClient> GetTCPMessageClients(int instances = 1)
+        public static IEnumerable<ISocketClient> GetTCPMessageClients(int instances = 1)
         {
-            var clients = new List<MessageClient>();
+            var clients = new List<ISocketClient>();
             var instanceRange = Enumerable.Range(0, instances);
             foreach(var instance in instanceRange)
             {
-                clients.Add(new MessageClient(SocketType.Stream, ProtocolType.Tcp));
+                clients.Add(new MessageClientTCP(SocketType.Stream, ProtocolType.Tcp));
             }
             return clients;
         }
-        public static IEnumerable<MessageClient> GetUDPMessageClients(int instances = 1)
+
+        public static IEnumerable<ISocketClient> GetUDPMessageClients(int instances = 1)
         {
-            var clients = new List<MessageClient>();
+            var clients = new List<ISocketClient>();
             var instanceRange = Enumerable.Range(0, instances);
             foreach (var instance in instanceRange)
             {
-                clients.Add(new MessageClient(SocketType.Dgram, ProtocolType.Udp));
+                clients.Add(new MessageClientUDP(SocketType.Dgram, ProtocolType.Udp));
             }
             return clients;
         }

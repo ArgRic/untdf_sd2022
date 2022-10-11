@@ -9,6 +9,7 @@ namespace UNTDF.SocketServer.Classes
     public class Server
     {
         private string EndpointAddress { get; }
+        private string initMessage { get; }
         private string ackMessage { get; }
         private SocketType socketType { get; }
         private ProtocolType protocolType { get; }
@@ -19,11 +20,16 @@ namespace UNTDF.SocketServer.Classes
             ackMessage = "<|ACK|>";
             this.socketType = socketType;
             this.protocolType = protocolType;
-
+            this.initMessage =
+                "Socket Server\n" +
+                $"Endpoint: {EndpointAddress}\n" +
+                $"Socket Type: {socketType}\n" +
+                $"Protocol Type: {protocolType}\n";
         }
 
         public async Task StartAsync()
         {
+            Console.WriteLine(initMessage);
             var messageHandler = new MessageHandler();
             IPHostEntry ipHostInfo = await Dns.GetHostEntryAsync(EndpointAddress);
             var ipEndPoint = new IPEndPoint(ipHostInfo.AddressList[0], 6400);
@@ -39,7 +45,7 @@ namespace UNTDF.SocketServer.Classes
             while (true)
             {
                 var handler = await socket.AcceptAsync();
-
+                Console.WriteLine("Handling Response");
                 // Receive message.
                 var buffer = new byte[1_024];
                 var received = await handler.ReceiveAsync(buffer, SocketFlags.None);
@@ -51,8 +57,9 @@ namespace UNTDF.SocketServer.Classes
                     Console.WriteLine(message);
                     messageHandler.HandleMessage(message);
 
-                    var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
+                    var echoBytes = Encoding.UTF8.GetBytes("<|ACK|>");
                     await handler.SendAsync(echoBytes, 0);
+
                     //break;
                 }
 

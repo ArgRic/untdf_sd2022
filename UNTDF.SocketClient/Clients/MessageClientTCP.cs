@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace UNTDF.SocketClient.Clients
 {
-    public class MessageClient
+    public class MessageClientTCP: ISocketClient
     {
         private string EndpointAddress { get; }
         private SocketType socketType { get; }
         private ProtocolType protocolType { get; }
 
-        public MessageClient(SocketType socketType, ProtocolType protocolType)
+        public MessageClientTCP(SocketType socketType, ProtocolType protocolType)
         {
-            EndpointAddress = "localhost";
+            EndpointAddress = "127.0.0.1";
             this.socketType = socketType;
             this.protocolType = protocolType;
 
@@ -23,7 +23,7 @@ namespace UNTDF.SocketClient.Clients
         public async Task SendMessageAsync(string message)
         {
             IPHostEntry ipHostInfo = await Dns.GetHostEntryAsync(EndpointAddress);
-            var ipEndPoint = new IPEndPoint(ipHostInfo.AddressList[0], 6400);
+            var ipEndPoint = new IPEndPoint(ipHostInfo.AddressList[0], 8000);
 
             var client = new Socket(
                 ipEndPoint.AddressFamily,

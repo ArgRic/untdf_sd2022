@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "UNTDF.gRPC.Server";
+
+package divider;
+
+service Divider {
+  rpc GetDivision (DivRequest) returns (DivResponse);
+}
+
+message DivRequest {
+  double dividendo = 1;
+  double divisor = 2;
+}
+
+message DivResponse {
+  double resultado = 1;
+}
+

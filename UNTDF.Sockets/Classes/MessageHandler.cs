@@ -10,10 +10,10 @@ namespace UNTDF.SocketServer.Classes
         {
         }
 
-        public async void HandleMessage(string message)
+        public async Task HandleMessage(string message)
         {
-            using StreamWriter file = new("output.txt");
-            await file.WriteAsync(message);
+            using StreamWriter file = File.AppendText("output.txt");
+            await file.WriteLineAsync(message);
         }
 
     }
