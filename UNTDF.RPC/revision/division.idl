@@ -1,0 +1,10 @@
+struct div_args{
+    long dividendo;
+    long divisor;
+};
+
+program DIV_PROG {
+    version TP4 {
+        long DIV_RPC(div_args) = 1;    /* procedure number = 1 */
+    } = 1;                          /* version number = 1 */
+} = 0x31234567;   

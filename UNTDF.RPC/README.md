@@ -8,4 +8,4 @@
 
 # Build Command
 
-rpcgen -C -Y "C:/_DevTools/w64devkit/bin" division.idl 
+rpcgen -aC -Y "C:/_DevTools/w64devkit/bin" division.idl 
