@@ -11,9 +11,8 @@ div_rpc_1_svc(div_args *argp, struct svc_req *rqstp)
 {
 	static long  result;
 
-	/*
-	 * insert server code here
-	 */
+
+	result = divArgs.dividendo / divArgs.divisor;
 
 	return &result;
 }

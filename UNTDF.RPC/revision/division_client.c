@@ -13,6 +13,8 @@ div_prog_1(char *host)
 	CLIENT *clnt;
 	long  *result_1;
 	div_args  div_rpc_1_arg;
+	div_rpc_1_arg.dividendo = 12;
+	div_rpc_1_arg.divisor = 3;
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, DIV_PROG, TP4, "netpath");
